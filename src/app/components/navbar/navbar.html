@@ -2,32 +2,27 @@
   <div class="navbar-container">
     <a href="#" class="navbar-logo">nLibrary</a>
 
-    <ul
-      class="navbar-menu"
-      [class.active]="isMobileMenuOpen"
-      [class.transitions-enabled]="transitionsEnabled"
-    >
-      @for (navLink of navLinks; track navLink.section) {
+    <ul class="navbar-menu" [class.active]="isMobileMenuOpen" [class.transitions-enabled]="transitionsEnabled">
+      @for (item of navItems; track $index) { @if (item.type === 'link') {
       <li>
-        <a
-          [href]="navLink.href"
-          class="navbar-link"
-          [class.active]="isActive(navLink.section)"
-          [class.navbar-cta]="navLink.isCta"
-          (click)="onNavLinkClick($event, navLink.section)"
-        >
-          {{ navLink.label }}
+        <a [href]="item.href" class="navbar-link" [class.active]="isActive(item.section)" (click)="onNavLinkClick($event, item.section)">
+          {{ item.label }}
         </a>
       </li>
-      }
+      } @else if (item.type === 'langSwitcher') {
+      <li>
+        <button class="navbar-lang-btn" (click)="toggleLanguage()" aria-label="Change language">{{ currentLanguage }}</button>
+      </li>
+      } @else if (item.type === 'cta') {
+      <li>
+        <a [href]="item.href" class="navbar-link navbar-cta" [class.active]="isActive(item.section)" (click)="onNavLinkClick($event, item.section)">
+          {{ item.label }}
+        </a>
+      </li>
+      } }
     </ul>
 
-    <button
-      class="navbar-toggle"
-      [class.active]="isMobileMenuOpen"
-      (click)="toggleMobileMenu()"
-      aria-label="Menu"
-    >
+    <button class="navbar-toggle" [class.active]="isMobileMenuOpen" (click)="toggleMobileMenu()" aria-label="Menu">
       <span></span>
       <span></span>
       <span></span>

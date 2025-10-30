@@ -1,5 +1,25 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
+interface NavLink {
+  type: 'link';
+  label: string;
+  href: string;
+  section: string;
+}
+
+interface NavCta {
+  type: 'cta';
+  label: string;
+  href: string;
+  section: string;
+}
+
+interface NavLangSwitcher {
+  type: 'langSwitcher';
+}
+
+type NavItem = NavLink | NavCta | NavLangSwitcher;
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.html',
@@ -13,12 +33,15 @@ export class Navbar implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private resizeTimer: any;
 
-  navLinks = [
-    { label: 'Accueil', href: '#accueil', section: 'accueil' },
-    { label: 'Services', href: '#services', section: 'services' },
-    { label: 'Portfolio', href: '#portfolio', section: 'portfolio' },
-    { label: 'À propos', href: '#about', section: 'about' },
-    { label: 'Contact', href: '#contact', section: 'contact', isCta: true },
+  currentLanguage = 'EN';
+
+  navItems: NavItem[] = [
+    { type: 'link', label: 'Home', href: '#accueil', section: 'accueil' },
+    { type: 'link', label: 'Games', href: '#services', section: 'services' },
+    { type: 'link', label: 'Books', href: '#portfolio', section: 'portfolio' },
+    { type: 'link', label: 'Musics', href: '#about', section: 'about' },
+    { type: 'langSwitcher' },
+    { type: 'cta', label: 'Login', href: '#contact', section: 'contact' },
   ];
 
   ngOnInit(): void {
@@ -86,6 +109,12 @@ export class Navbar implements OnInit {
 
   isActive(section: string): boolean {
     return this.activeSection === section;
+  }
+
+  toggleLanguage(): void {
+    this.currentLanguage = this.currentLanguage === 'EN' ? 'FR' : 'EN';
+    // Add your language switching logic here later
+    console.log('Language switched to:', this.currentLanguage);
   }
 
   private setupIntersectionObserver(): void {
