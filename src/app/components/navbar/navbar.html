@@ -1,0 +1,36 @@
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="navbar-container">
+    <a href="#" class="navbar-logo">nLibrary</a>
+
+    <ul
+      class="navbar-menu"
+      [class.active]="isMobileMenuOpen"
+      [class.transitions-enabled]="transitionsEnabled"
+    >
+      @for (navLink of navLinks; track navLink.section) {
+      <li>
+        <a
+          [href]="navLink.href"
+          class="navbar-link"
+          [class.active]="isActive(navLink.section)"
+          [class.navbar-cta]="navLink.isCta"
+          (click)="onNavLinkClick($event, navLink.section)"
+        >
+          {{ navLink.label }}
+        </a>
+      </li>
+      }
+    </ul>
+
+    <button
+      class="navbar-toggle"
+      [class.active]="isMobileMenuOpen"
+      (click)="toggleMobileMenu()"
+      aria-label="Menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
