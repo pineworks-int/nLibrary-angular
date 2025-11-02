@@ -5,14 +5,14 @@
   right: 0;
   background: var(--dark-green);
   backdrop-filter: blur(10px);
-  box-shadow: 0 2px 10px var(--soft-green);
+  box-shadow: 0 2px 10px var(--sharp-green);
   z-index: 1000;
   transition: all 0.3s ease;
 }
 
 .navbar.scrolled {
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  background: var(--dark-green);
+  box-shadow: 0 4px 20px var(--sharp-green);
 }
 
 .navbar-container {
